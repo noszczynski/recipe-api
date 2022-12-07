@@ -1,0 +1,12 @@
+### POST /dishes
+POST http://localhost:3000/dishes
+Content-Type: application/json
+
+{
+  "name": "The new dish",
+  "servings": 1
+}
+
+### GET /dishes
+GET http://localhost:3000/dishes
+Content-Type: application/json

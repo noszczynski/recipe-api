@@ -1,0 +1,19 @@
+### GET /
+GET http://localhost: 3000
+Content-Type: application/json
+
+### GET /user
+GET http://localhost:3000/user
+Content-Type: application/json
+
+### POST /user
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+  "name": "Adam"
+}
+
+### DELETE /user/:id
+DELETE http://localhost:3000/user/1
+Content-Type: application/json
