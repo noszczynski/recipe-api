@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -30,7 +31,9 @@ export class DishesController {
   ];
 
   @Post()
-  createOne(@Body() dish: CreateDishDto): { data: CreateDishDto } {
+  createOne(@Body() dish: CreateDishDto): {
+    data: CreateDishDto;
+  } {
     this.dishes.push({ id: this.id++, ...dish } as Dish);
 
     return { data: dish };
@@ -42,22 +45,32 @@ export class DishesController {
   }
 
   @Put()
-  updateOne(@Body() dish: UpdateDishDto) {
+  updateOne(@Body() dish: UpdateDishDto): {
+    data: Dish;
+  } {
     const dishToUpdate = this.dishes.find(
       (d: Dish) => d.id === Number(dish.id),
     );
-    if (dishToUpdate) {
-      Object.assign(dishToUpdate, dish);
+
+    if (!dishToUpdate) {
+      throw new NotFoundException(`Dish id: ${dish.id} not found`);
     }
-    return dishToUpdate;
+
+    Object.assign(dishToUpdate, dish);
+
+    return {
+      data: dishToUpdate,
+    };
   }
 
   @Delete(':id')
-  removeOne(@Param('id') id: string) {
-    this.dishes = this.dishes.filter((d: Dish) => d.id !== Number(id));
+  removeOne(@Param('id') id: string): void {
+    const dishToRemove = this.dishes.find((d: Dish) => d.id === Number(id));
 
-    return {
-      id,
-    };
+    if (!dishToRemove) {
+      throw new NotFoundException(`Dish id: ${id} not found`);
+    }
+
+    this.dishes = this.dishes.filter((d: Dish) => d.id !== Number(id));
   }
 }

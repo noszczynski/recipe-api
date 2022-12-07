@@ -10,3 +10,17 @@ Content-Type: application/json
 ### GET /dishes
 GET http://localhost:3000/dishes
 Content-Type: application/json
+
+### PUT /dishes
+PUT http://localhost:3000/dishes
+Content-Type: application/json
+
+{
+  "id": 10,
+  "name": "The new dish",
+  "servings": 2
+}
+
+### DELETE /dishes/:id
+DELETE http://localhost:3000/dishes/1
+Content-Type: application/json
