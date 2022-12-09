@@ -23,7 +23,7 @@ export class ProductsService {
     const newProduct = new Product();
     Object.assign(newProduct, product);
 
-    await this.dishService.readOne(product.dishId);
+    newProduct.dish = await this.dishService.readOne(product.dishId);
 
     return newProduct.save();
   }

@@ -47,7 +47,7 @@ export class DishesController {
   async getOne(@Param('id', ParseIntPipe) id: number): Promise<{
     data: Dish;
   }> {
-    const data = await this.dishService.getOneById(id);
+    const data = await this.dishService.readOne(id);
 
     return {
       data,

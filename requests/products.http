@@ -3,9 +3,9 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-  "name": "The new product",
-  "unit": "kg",
-  "amount": 2,
+  "name": "Pepper",
+  "unit": "pinch",
+  "amount": 1,
   "dishId": 1
 }
 

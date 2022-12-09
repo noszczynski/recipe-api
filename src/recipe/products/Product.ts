@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Dish } from '../dishes/Dish';
 
 export type ProductUnit =
   | 'kg'
@@ -24,6 +31,8 @@ export class Product extends BaseEntity {
   @Column({ type: 'decimal' })
   amount: number;
 
-  @Column({ type: 'int' })
-  dishId: number;
+  @ManyToOne(() => Dish, (dish) => dish.products, {
+    onDelete: 'CASCADE',
+  })
+  dish: Dish;
 }

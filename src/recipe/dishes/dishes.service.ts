@@ -13,11 +13,11 @@ export class DishesService {
   }
 
   read(): Promise<Dish[]> {
-    return Dish.find();
+    return Dish.find({ relations: ['products'] });
   }
 
   async readOne(id: number): Promise<Dish> {
-    const dish = await Dish.findOne({ where: { id } });
+    const dish = await Dish.findOne({ where: { id }, relations: ['products'] });
 
     if (!dish) {
       throw new NotFoundException('Dish not found');

@@ -1,5 +1,11 @@
 import { Product } from '../products/Product';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Dish extends BaseEntity {
@@ -12,7 +18,7 @@ export class Dish extends BaseEntity {
   @Column({ type: 'decimal' })
   servings: number;
 
-  // @OneToMany()
+  @OneToMany(() => Product, (product) => product.dish)
   products: Product[];
 
   @Column({ nullable: true, type: 'text' })
