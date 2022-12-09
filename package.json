@@ -35,7 +35,7 @@
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/throttler": "3.0.0",
-    "@nestjs/typeorm": "^8.0.3",
+    "@nestjs/typeorm": "^9.0.1",
     "@types/bcrypt": "^5.0.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
@@ -53,8 +53,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "slugify": "^1.6.5",
-    "sqlite3": "^5.0.2",
-    "typeorm": "^0.2.43",
+    "sqlite3": "^5.1.2",
+    "typeorm": "^0.3.11",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

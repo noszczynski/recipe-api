@@ -2,59 +2,40 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Dish } from './Dish';
 import { UpdateDishDto } from './dto/update-dish.dto';
 import { CreateDishDto } from './dto/create-dish.dto';
-import { ProductsService } from '../products/products.service';
 
 @Injectable()
 export class DishesService {
-  private id = 1;
-  private dishes: Dish[] = [
-    {
-      id: this.id++,
-      name: 'Lasagne',
-      servings: 1,
-      products: [],
-    },
-  ];
+  create(dish: CreateDishDto): Promise<Dish> {
+    const newDish = new Dish();
+    Object.assign(newDish, dish);
 
-  constructor(private productService: ProductsService) {}
+    return newDish.save();
+  }
 
-  getOneById(id: number): Dish {
-    const dish: Dish | undefined = this.dishes.find((d: Dish) => d.id === id);
+  read(): Promise<Dish[]> {
+    return Dish.find();
+  }
+
+  async readOne(id: number): Promise<Dish> {
+    const dish = await Dish.findOne({ where: { id } });
 
     if (!dish) {
       throw new NotFoundException('Dish not found');
     }
 
-    return {
-      ...dish,
-      products: this.productService.getAllForDishId(dish.id),
-    };
+    return dish;
   }
 
-  create(dish: CreateDishDto): Dish {
-    const newDish: Dish = { id: this.id++, products: [], ...dish };
-    this.dishes.push(newDish);
-
-    return newDish;
-  }
-
-  read(): readonly Dish[] {
-    return this.dishes.map((dish: Dish) => ({
-      ...dish,
-      products: this.productService.getAllForDishId(dish.id),
-    }));
-  }
-
-  update(dish: UpdateDishDto): Dish {
-    const dishToUpdate = this.getOneById(dish.id);
+  async update(dish: UpdateDishDto): Promise<Dish> {
+    const dishToUpdate = await this.readOne(dish.id);
 
     Object.assign(dishToUpdate, dish);
 
     return dishToUpdate;
   }
 
-  delete(id: number): void {
-    this.getOneById(id);
-    this.dishes = this.dishes.filter((d: Dish) => d.id !== Number(id));
+  async delete(id: number): Promise<Dish> {
+    const dishToRemove = await this.readOne(id);
+    return dishToRemove.remove();
   }
 }

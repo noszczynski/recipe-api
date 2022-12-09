@@ -22,10 +22,10 @@ export class DishesController {
   }
 
   @Post()
-  createOne(@Body() dish: CreateDishDto): {
+  async createOne(@Body() dish: CreateDishDto): Promise<{
     data: Dish;
-  } {
-    const data = this.dishService.create(dish);
+  }> {
+    const data = await this.dishService.create(dish);
 
     return {
       data,
@@ -33,10 +33,10 @@ export class DishesController {
   }
 
   @Get()
-  getAll(): {
-    data: readonly Dish[];
-  } {
-    const data = this.dishService.read();
+  async getAll(): Promise<{
+    data: Dish[];
+  }> {
+    const data = await this.dishService.read();
 
     return {
       data,
@@ -44,10 +44,10 @@ export class DishesController {
   }
 
   @Get(':id')
-  getOne(@Param('id', ParseIntPipe) id: number): {
+  async getOne(@Param('id', ParseIntPipe) id: number): Promise<{
     data: Dish;
-  } {
-    const data: Dish = this.dishService.getOneById(id);
+  }> {
+    const data = await this.dishService.getOneById(id);
 
     return {
       data,
@@ -55,10 +55,10 @@ export class DishesController {
   }
 
   @Put()
-  updateOne(@Body() dish: UpdateDishDto): {
+  async updateOne(@Body() dish: UpdateDishDto): Promise<{
     data: Dish;
-  } {
-    const data: Dish = this.dishService.update(dish);
+  }> {
+    const data = await this.dishService.update(dish);
 
     return {
       data,

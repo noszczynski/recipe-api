@@ -18,10 +18,10 @@ export class ProductsController {
   constructor(private productService: ProductsService) {}
 
   @Post()
-  createOne(@Body() product: CreateProductDto): {
+  async createOne(@Body() product: CreateProductDto): Promise<{
     data: Product;
-  } {
-    const data = this.productService.create(product);
+  }> {
+    const data = await this.productService.create(product);
 
     return {
       data,
@@ -29,10 +29,10 @@ export class ProductsController {
   }
 
   @Get()
-  getAll(): {
-    data: readonly Product[];
-  } {
-    const data = this.productService.read();
+  async getAll(): Promise<{
+    data: Product[];
+  }> {
+    const data = await this.productService.read();
 
     return {
       data,
@@ -40,10 +40,10 @@ export class ProductsController {
   }
 
   @Put()
-  updateOne(@Body() product: UpdateProductDto): {
+  async updateOne(@Body() product: UpdateProductDto): Promise<{
     data: Product;
-  } {
-    const data: Product = this.productService.update(product);
+  }> {
+    const data = await this.productService.update(product);
 
     return {
       data,
@@ -51,7 +51,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  removeOne(@Param('id', ParseIntPipe) id: number): void {
-    this.productService.delete(id);
+  async removeOne(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    await this.productService.delete(id);
   }
 }

@@ -11,16 +11,6 @@ import { DishesService } from '../dishes/dishes.service';
 
 @Injectable()
 export class ProductsService {
-  private id = 1;
-  private products: Product[] = [
-    {
-      id: this.id++,
-      name: 'Milk',
-      unit: 'l',
-      amount: 1,
-      dishId: 1,
-    },
-  ];
   private dishService: DishesService;
 
   constructor(
@@ -29,10 +19,21 @@ export class ProductsService {
     this.dishService = dishService;
   }
 
-  getOneById(id: number): Product {
-    const product: Product | undefined = this.products.find(
-      (d: Product) => d.id === id,
-    );
+  async create(product: CreateProductDto): Promise<Product> {
+    const newProduct = new Product();
+    Object.assign(newProduct, product);
+
+    await this.dishService.readOne(product.dishId);
+
+    return newProduct.save();
+  }
+
+  read(): Promise<Product[]> {
+    return Product.find();
+  }
+
+  async readOne(id: number): Promise<Product> {
+    const product = await Product.findOne({ where: { id } });
 
     if (!product) {
       throw new NotFoundException('Product not found');
@@ -41,36 +42,16 @@ export class ProductsService {
     return product;
   }
 
-  getAllForDishId(id: number): Product[] {
-    return this.products.filter((p: Product) => p.dishId === id);
-  }
-
-  create(product: CreateProductDto): Product {
-    const newProduct: Product = {
-      id: this.id++,
-      ...product,
-    };
-
-    this.dishService.getOneById(product.dishId);
-    this.products.push(newProduct);
-
-    return newProduct;
-  }
-
-  read(): readonly Product[] {
-    return this.products;
-  }
-
-  update(product: UpdateProductDto): Product {
-    const productToUpdate = this.getOneById(product.id);
+  async update(product: UpdateProductDto): Promise<Product> {
+    const productToUpdate = await this.readOne(product.id);
 
     Object.assign(productToUpdate, product);
 
     return productToUpdate;
   }
 
-  delete(id: number): void {
-    this.getOneById(id);
-    this.products = this.products.filter((d: Product) => d.id !== Number(id));
+  async delete(id: number): Promise<Product> {
+    const productToRemove = await this.readOne(id);
+    return productToRemove.remove();
   }
 }
