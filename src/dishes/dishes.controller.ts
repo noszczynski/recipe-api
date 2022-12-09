@@ -43,6 +43,17 @@ export class DishesController {
     };
   }
 
+  @Get(':id')
+  getOne(@Param('id', ParseIntPipe) id: number): {
+    data: Dish;
+  } {
+    const data: Dish = this.dishService.getOneById(id);
+
+    return {
+      data,
+    };
+  }
+
   @Put()
   updateOne(@Body() dish: UpdateDishDto): {
     data: Dish;

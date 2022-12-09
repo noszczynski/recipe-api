@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Dish } from './Dish';
 import { UpdateDishDto } from './dto/update-dish.dto';
 import { CreateDishDto } from './dto/create-dish.dto';
+import { ProductsService } from '../products/products.service';
 
 @Injectable()
 export class DishesService {
@@ -11,8 +12,11 @@ export class DishesService {
       id: this.id++,
       name: 'Lasagne',
       servings: 1,
+      products: [],
     },
   ];
+
+  constructor(private productService: ProductsService) {}
 
   getOneById(id: number): Dish {
     const dish: Dish | undefined = this.dishes.find((d: Dish) => d.id === id);
@@ -21,18 +25,24 @@ export class DishesService {
       throw new NotFoundException('Dish not found');
     }
 
-    return dish;
+    return {
+      ...dish,
+      products: this.productService.getAllForDishId(dish.id),
+    };
   }
 
   create(dish: CreateDishDto): Dish {
-    const newDish: Dish = { id: this.id++, ...dish };
+    const newDish: Dish = { id: this.id++, products: [], ...dish };
     this.dishes.push(newDish);
 
     return newDish;
   }
 
   read(): readonly Dish[] {
-    return this.dishes;
+    return this.dishes.map((dish: Dish) => ({
+      ...dish,
+      products: this.productService.getAllForDishId(dish.id),
+    }));
   }
 
   update(dish: UpdateDishDto): Dish {
