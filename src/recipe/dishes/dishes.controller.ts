@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { UpdateDishDto } from './dto/update-dish.dto';
 import { CreateDishDto } from './dto/create-dish.dto';
-import { Dish } from './Dish';
+import { Dish } from './dish.entity';
 import { DishesService } from './dishes.service';
 
 @Controller('dishes')

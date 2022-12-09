@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
-import { Product } from './Product';
+import { Product } from './product.entity';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { DishesService } from '../dishes/dishes.service';
 
