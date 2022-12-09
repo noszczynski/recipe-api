@@ -12,6 +12,7 @@ import { Product } from './product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
+import { UpdateResult } from 'typeorm';
 
 @Controller('products')
 export class ProductsController {
@@ -41,7 +42,7 @@ export class ProductsController {
 
   @Put()
   async updateOne(@Body() product: UpdateProductDto): Promise<{
-    data: Product;
+    data: UpdateResult;
   }> {
     const data = await this.productService.update(product);
 
