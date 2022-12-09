@@ -1,4 +1,3 @@
-import { Product } from '../products/product.entity';
 import {
   BaseEntity,
   Column,
@@ -8,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../user/user.entity';
+import { Ingredient } from '../ingredients/ingredient.entity';
 
 @Entity()
 export class Dish extends BaseEntity {
@@ -20,8 +20,8 @@ export class Dish extends BaseEntity {
   @Column({ type: 'decimal' })
   servings: number;
 
-  @OneToMany(() => Product, (product) => product.dish)
-  products: Product[];
+  @OneToMany(() => Ingredient, (ingredient) => ingredient.product)
+  ingredients: Ingredient[];
 
   @ManyToOne(() => User, (user) => user.dishes, {
     onDelete: 'CASCADE',
