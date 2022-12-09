@@ -3,74 +3,59 @@ import {
   Controller,
   Delete,
   Get,
-  NotFoundException,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
-import { nanoid } from 'nanoid';
 import { UpdateDishDto } from './dto/update-dish.dto';
 import { CreateDishDto } from './dto/create-dish.dto';
-
-interface Dish {
-  id: number;
-  name: string;
-  servings: number;
-  description?: string;
-}
+import { Dish } from './Dish';
+import { DishesService } from './dishes.service';
 
 @Controller('dishes')
 export class DishesController {
-  id = 1;
-  dishes: Dish[] = [
-    {
-      id: this.id++,
-      name: 'Lasagne',
-      servings: 1,
-    },
-  ];
+  private dishService;
+
+  constructor(dishService: DishesService) {
+    this.dishService = dishService;
+  }
 
   @Post()
   createOne(@Body() dish: CreateDishDto): {
-    data: CreateDishDto;
+    data: Dish;
   } {
-    this.dishes.push({ id: this.id++, ...dish } as Dish);
+    const data = this.dishService.create(dish);
 
-    return { data: dish };
+    return {
+      data,
+    };
   }
 
   @Get()
-  getAll(): Dish[] {
-    return this.dishes;
+  getAll(): {
+    data: readonly Dish[];
+  } {
+    const data = this.dishService.read();
+
+    return {
+      data,
+    };
   }
 
   @Put()
   updateOne(@Body() dish: UpdateDishDto): {
     data: Dish;
   } {
-    const dishToUpdate = this.dishes.find(
-      (d: Dish) => d.id === Number(dish.id),
-    );
-
-    if (!dishToUpdate) {
-      throw new NotFoundException(`Dish id: ${dish.id} not found`);
-    }
-
-    Object.assign(dishToUpdate, dish);
+    const data: Dish = this.dishService.update(dish);
 
     return {
-      data: dishToUpdate,
+      data,
     };
   }
 
   @Delete(':id')
-  removeOne(@Param('id') id: string): void {
-    const dishToRemove = this.dishes.find((d: Dish) => d.id === Number(id));
-
-    if (!dishToRemove) {
-      throw new NotFoundException(`Dish id: ${id} not found`);
-    }
-
-    this.dishes = this.dishes.filter((d: Dish) => d.id !== Number(id));
+  removeOne(@Param('id', ParseIntPipe) id: number): void {
+    this.dishService.delete(id);
   }
 }

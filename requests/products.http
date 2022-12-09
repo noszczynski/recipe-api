@@ -1,0 +1,30 @@
+### POST /products
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "The new product",
+  "unit": "kg",
+  "amount": 2,
+  "dishId": 1
+}
+
+### GET /products
+GET http://localhost:3000/products
+Content-Type: application/json
+
+### PUT /products
+PUT http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Cocoa",
+  "unit": "kg",
+  "amount": 10,
+  "dishId": 1
+}
+
+### DELETE /products/:id
+DELETE http://localhost:3000/products/1
+Content-Type: application/json
