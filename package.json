@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
-    "@nestjs/config": "^2.0.0",
+    "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/mapped-types": "^1.0.1",
@@ -47,7 +47,7 @@
     "nanoid": "^4.0.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
-    "pg": "^8.7.3",
+    "pg": "^8.8.0",
     "pg-error-enum": "^0.5.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

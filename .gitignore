@@ -5,6 +5,10 @@
 # database
 /database/recipe-api.sqlite3
 
+# Env
+.env
+.env.*
+
 # Logs
 logs
 *.log
