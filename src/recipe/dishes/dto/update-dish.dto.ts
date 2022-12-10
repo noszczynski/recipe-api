@@ -1,4 +1,5 @@
-import { IsNumber, IsString, IsOptional } from 'class-validator';
+import { IsNumber, IsString, IsOptional, IsBoolean } from 'class-validator';
+
 export class UpdateDishDto {
   @IsNumber()
   id: number;
@@ -8,6 +9,12 @@ export class UpdateDishDto {
 
   @IsNumber({}, { message: 'Servings must be a number' })
   servings: number;
+
+  @IsString()
+  slug: string;
+
+  @IsBoolean()
+  isPublic: boolean;
 
   @IsOptional()
   @IsString()

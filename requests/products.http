@@ -3,10 +3,8 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-  "name": "Pepper",
-  "unit": "pinch",
-  "amount": 1,
-  "dishId": 1
+  "name": "Salt",
+  "unit": "kg"
 }
 
 ### GET /products

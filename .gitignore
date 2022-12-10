@@ -2,9 +2,6 @@
 /dist
 /node_modules
 
-# database
-/database/recipe-api.sqlite3
-
 # Env
 .env.*
 !.env.example

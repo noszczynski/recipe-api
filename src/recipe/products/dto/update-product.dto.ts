@@ -10,10 +10,4 @@ export class UpdateProductDto {
 
   @IsString()
   unit: ProductUnit;
-
-  @IsNumber()
-  amount: number;
-
-  @IsNumber()
-  dishId: number;
 }

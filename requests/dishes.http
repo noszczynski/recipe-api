@@ -3,8 +3,11 @@ POST http://localhost:3000/dishes
 Content-Type: application/json
 
 {
-  "name": "Spaghetti Bolognese",
-  "servings": 1
+  "name": "Potato Soup",
+  "servings": 1,
+  "slug": "potato-soup",
+  "isPublic": false,
+  "description": "..."
 }
 
 ### GET /dishes
