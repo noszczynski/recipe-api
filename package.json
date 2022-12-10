@@ -22,9 +22,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migrate": "npx ts-node ./node_modules/typeorm/cli.js migration:run --config src/config/database.config ",
-    "migrate:revert": "npx ts-node ./node_modules/typeorm/cli.js migration:revert --config src/config/database.config ",
-    "db:seed": "ts-node  -r esm ./node_modules/typeorm-seeding/dist/cli.js seed -n"
+    "migrate": "NODE_ENV=development npx ts-node ./node_modules/typeorm/cli.js migration:run -d src/config/database.config",
+    "migrate:create": "NODE_ENV=development npx ts-node ./node_modules/typeorm/cli.js migration:create -n CreateUserTable -d src/config/database.config",
+    "migrate:revert": "NODE_ENV=development npx ts-node ./node_modules/typeorm/cli.js migration:revert -d src/config/database.config"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

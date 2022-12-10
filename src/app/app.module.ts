@@ -4,7 +4,7 @@ import { RecipeModule } from '../recipe/recipe.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import { databaseConfig } from '../config/db.config';
+import { databaseConfig } from '../config/database.config';
 import { envValidationSchema } from '../config/envValidation.config';
 
 @Module({
