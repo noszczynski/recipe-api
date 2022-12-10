@@ -6,8 +6,8 @@
 /database/recipe-api.sqlite3
 
 # Env
-.env
 .env.*
+!.env.example
 
 # Logs
 logs

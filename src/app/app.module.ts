@@ -5,12 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { databaseConfig } from '../config/db.config';
+import { envValidationSchema } from '../config/envValidation.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     RecipeModule,
     UserModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [`.env.${process.env.NODE_ENV}`],
+      validationSchema: envValidationSchema,
+    }),
     TypeOrmModule.forRootAsync(databaseConfig),
   ],
   controllers: [AppController],
