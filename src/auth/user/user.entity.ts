@@ -5,7 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Dish } from '../recipe/dishes/dish.entity';
+import { Dish } from '../../recipe/dishes/dish.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -13,7 +13,10 @@ export class User extends BaseEntity {
   id: number;
 
   @Column({ type: 'varchar' })
-  username: string;
+  email: string;
+
+  @Column({ type: 'varchar' })
+  password: string;
 
   @OneToMany(() => Dish, (dish) => dish.user)
   dishes: Dish[];

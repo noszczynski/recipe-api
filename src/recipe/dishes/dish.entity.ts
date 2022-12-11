@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '../../user/user.entity';
+import { User } from '../../auth/user/user.entity';
 import { Ingredient } from '../ingredients/ingredient.entity';
 
 @Entity()
