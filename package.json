@@ -24,7 +24,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate": "NODE_ENV=development npx ts-node ./node_modules/typeorm/cli.js migration:run -d src/config/database.config",
     "migrate:create": "NODE_ENV=development typeorm migration:create ./src/database/migrations/$npm_config_name",
-    "migrate:revert": "NODE_ENV=development npx ts-node ./node_modules/typeorm/cli.js migration:revert -d src/config/database.config"
+    "migrate:revert": "NODE_ENV=development npx ts-node ./node_modules/typeorm/cli.js migration:revert -d src/config/database.config",
+    "seed:config": "NODE_ENV=development ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+    "seed:run": "NODE_ENV=development ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -58,7 +60,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@faker-js/faker": "^6.1.1",
+    "@faker-js/faker": "^7.6.0",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",

@@ -29,33 +29,72 @@
 ## Installation
 
 ```bash
-$ npm install
+# install
+$ yarn
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
+
+## Build the app
+
+```bash
+# build
+$ yarn build
+````
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn test:cov
+```
+
+## Database
+
+Credentials to the database is in .env.* files
+
+### Seeds
+
+```bash
+# config seeds
+$ yarn seed:config
+```
+
+### Migrations
+
+```bash
+# create new migration file
+$ npm run migrate:create --name=MyCustomMigrationName
+```
+
+```bash
+# revert migration
+$ yarn migrate:revert
+```
+
+```bash
+# execute migrations
+$ yarn migrate
+
+# execute seeds
+$ yarn seed:run
 ```
 
 ## Support

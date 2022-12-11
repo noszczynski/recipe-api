@@ -17,6 +17,9 @@ export class Dish extends BaseEntity {
   @Column({ type: 'varchar' })
   name: string;
 
+  @Column({ type: 'varchar' })
+  slug: string;
+
   @Column({ type: 'decimal' })
   servings: number;
 
